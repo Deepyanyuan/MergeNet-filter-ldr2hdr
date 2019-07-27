@@ -47,7 +47,7 @@ def func_4(x):
     result[result<0.0]=0.0 
     return result
 func_dict = {'mark0': func_0, 'mark1': func_1, 'mark2': func_2, 'mark3': func_3, 'mark4': func_4}
-mark_list = ['mark0', 'mark1', 'mark2', 'mark3', 'mark4']                   # mark_list 是指相机函数标志物
+mark_list = ['mark0', 'mark1', 'mark2', 'mark3', 'mark4']                
 
 # define digital filter function
 def hdr_filter_func(hdr):
