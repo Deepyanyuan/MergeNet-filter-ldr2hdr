@@ -3,7 +3,7 @@ MergeNet-filter-ldr2hdr, detail in paper 《Reconstructing HDR Image from a Sing
 
 original HDR dataset come from online: DML-HDR {http://dml.ece.ubc.ca/data/DML-HDR/} and Funt-HDR {https://www2.cs.sfu.ca/~colour/data/}.
 
-step 0: generate training pairs by generate_data.py
+step 0: generate training pairs by generate_data.py or generate_data_2.py
 
 step 1: create network, in this paper, we use Endo et al.'s network and make a small modification, detail in network.py and our paper.
 
