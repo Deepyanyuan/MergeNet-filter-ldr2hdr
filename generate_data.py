@@ -1,4 +1,9 @@
 # coding:utf-8
+'''
+Generate training data pairs: hdr2ldr
+including one log-domain HDR image, one original-domain HDR image, 
+9 traditional multi-exposure LDR images, 9 filtered multi-exposure LDR images
+'''
 import numpy as np
 import cv2
 import glob, argparse, math
@@ -14,7 +19,7 @@ parser.add_argument('-o', help='Directory path of ldr images.', default='./train
 
 args = parser.parse_args()
 
-# camera response curve function     
+# definite camera response curve function     
 def func_0(x):
     result = 0.02075*np.power(x, 3) + 0.5034 * np.power(x, 2) + 0.4727 * x - 0.001136
     result[result>1.0]=1.0 
@@ -43,6 +48,7 @@ def func_4(x):
 func_dict = {'mark0': func_0, 'mark1': func_1, 'mark2': func_2, 'mark3': func_3, 'mark4': func_4}
 mark_list = ['mark0', 'mark1', 'mark2', 'mark3', 'mark4']         
 
+# digital filter function
 def hdr_filter_func(hdr):
     height, width, channel = np.shape(hdr)
     temp = np.zeros(height * width * channel).reshape(height, width, channel)
@@ -51,6 +57,7 @@ def hdr_filter_func(hdr):
     temp[:,:,2] = hdr[:,:,2] * 0.3
     return temp
 
+# exposure time function
 def exposure_times(tao, T):
     delt_t = list()
     tt = int(T/2+1)
@@ -72,22 +79,21 @@ dir_in_path_list = dir_in_path_list[:]
 dir_out_path = glob.glob(args.o)
 Times = exposure_times(tao,T)          
 
-
 start = datetime.datetime.now ()
 N = len(dir_in_path_list)
 for i in range(N):
     dir_in_path = dir_in_path_list[i]                     
     filename_root = os.path.basename(dir_in_path)   
-    files_hdr_path_list = glob.glob(dir_in_path+'/*.hdr')
+    files_hdr_path_list = glob.glob(dir_in_path+'/*.hdr')       
     for file_num, file in enumerate (files_hdr_path_list):
         if file_num % 10 == 0:
-            hdr = cv2.imread(file, flags=cv2.IMREAD_ANYDEPTH) 
+            hdr = cv2.imread(file, flags=cv2.IMREAD_ANYDEPTH)       # read HDR dataset
             hdr_0 = hdr + (10**-8)                            
             filename_hdr, file_format = os.path.splitext(file) 
             filename_sub = os.path.basename(filename_hdr)      
             print('file name:', filename_sub)
-            hdr_log = np.log10(hdr_0)
-            hdr_log_norm = (hdr_log+5)/6.0    
+            hdr_log = np.log10(hdr_0)                               
+            hdr_log_norm = (hdr_log+5)/6.0          
             hdr_mean = np.mean(hdr_0)
             hdr_norm = hdr_0/(normal_value * hdr_mean) 
             hdr_filter = hdr_filter_func(hdr_norm)     
@@ -110,7 +116,7 @@ for i in range(N):
                 num_j = int(width/512)
                 for i in range(num_i):
                     for j in range(num_j):
-                        num = i*(num_j)+j
+                        num = i*(num_j)+j           
                         cut_hdr_temp = hdr_log_norm[(i*512):(i*512+512), (j*512):(j*512+512),:]
                         cut_hdr_0_temp = hdr_0[(i*512):(i*512+512), (j*512):(j*512+512),:]
                         cut_norm_temp = hdr_norm_temp[:, (i*512):(i*512+512), (j*512):(j*512+512),:]
@@ -123,14 +129,14 @@ for i in range(N):
                         os.makedirs(class_H_path)
                         os.makedirs(class_L_path)
                         os.makedirs(class_F_path)
-                        cv2.imwrite(class_H_path+'/0.hdr', cut_hdr_temp)      
-                        cv2.imwrite(class_H_path+'/1.hdr', cut_hdr_0_temp)    
+                        cv2.imwrite(class_H_path+'/0.hdr', cut_hdr_temp)      # write log-domain HDR as ground truth (one)
+                        cv2.imwrite(class_H_path+'/1.hdr', cut_hdr_0_temp)    # write original-domain HDR as performance evaluation
                         for n in range(exposure_N):
                             start_3 = datetime.datetime.now()
                             cut_norm_temp_ = cut_norm_temp[n]* 255                        
                             cut_filter_temp_ = cut_filter_temp[n]* 255                                
-                            cv2.imwrite(class_L_path+'/'+str(n)+'.png', cut_norm_temp_)        
-                            cv2.imwrite(class_F_path+'/'+str(n)+'.png', cut_filter_temp_)      
+                            cv2.imwrite(class_L_path+'/'+str(n)+'.png', cut_norm_temp_)        # write no-filtered multi-exposure LDR images as ground truth (two)
+                            cv2.imwrite(class_F_path+'/'+str(n)+'.png', cut_filter_temp_)      # write filtered multi-exposure LDR images as input data
                             end_3 = datetime.datetime.now()
 
 end = datetime.datetime.now()

@@ -14,8 +14,8 @@ import scipy.io as scio
 import datetime
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('-i', help='File path of input image.', default='./training_samples_3')
-parser.add_argument('-o', help='Output directory.', default='./results_3')
+parser.add_argument('-i', help='File path of input image.', default='./testing_samples')
+parser.add_argument('-o', help='Output directory.', default='./results')
 parser.add_argument('-gpu', help='GPU device specifier. Two GPU devices must be specified, such as 0,1.', default='0')
 parser.add_argument('-dm', help='File path of a downexposure model.', default='./models/downexposure_model_2_18_.chainer')
 parser.add_argument('-um', help='File path of a upexposure model.', default='./models/upexposure_model_2_18_.chainer')
@@ -68,12 +68,11 @@ def estimate_images(input_img, model):
 
     return out_img_list
 
-# 读取图像
 print('\nStarting prediction...\n\n')
 N = len(dir_path_list)
 for i in range (N):
     dir_path = dir_path_list[i]
-    frames = [glob.glob(dir_path + '/LDR/1.png')[0], glob.glob(dir_path + '/LDR/4.png')[0], glob.glob(dir_path + '/LDR/6.png')[0]]
+    frames = [glob.glob(dir_path + '/LDR/1.png')[0], glob.glob(dir_path + '/LDR/4.png')[0], glob.glob(dir_path + '/LDR/7.png')[0]]
 
     frame_H = [glob.glob(dir_path + '/HDR/1.hdr')[0]]
     HDR_Ground = cv2.imread(frame_H[0], flags=cv2.IMREAD_ANYDEPTH)

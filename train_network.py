@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
+'''
+train up and down model if you have two gpu, otherwise only up or down every time
+'''
+
 
 import argparse, glob
 import numpy
@@ -14,10 +18,10 @@ import imageio
 import random
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('-i', help='Directory path of training data.', default='./training_samples_3')
+parser.add_argument('-i', help='Directory path of training data.', default='./training_samples')
 parser.add_argument('-o', help='Saved path of an output model file.', default='./models')
 parser.add_argument('-l', help='Learning type. (0:downexposure, 1:upexposure)', default='0')
-parser.add_argument('-gpu', help='GPU device specifier.', default='0')
+parser.add_argument('-gpu', help='GPU device specifier.', default='-1')
 parser.add_argument('-dm', help='File path of a pre-downexposure model.', default='./models/downexposure_model_0.chainer')
 parser.add_argument('-um', help='File path of a pre-upexposure model.', default='./models/upexposure_model_0.chainer')
 args = parser.parse_args()

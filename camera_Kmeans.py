@@ -1,4 +1,7 @@
 # coding:utf-8
+'''
+Select and plot camera response curves
+'''
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt

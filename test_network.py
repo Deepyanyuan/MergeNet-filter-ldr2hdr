@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+'''
+test and prediction results
+'''
 
 import argparse, os, math,glob
 import numpy
@@ -14,12 +17,12 @@ import scipy.io as scio
 import datetime
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('-i', help='File path of input image.', default='./testing_samples_2')
-parser.add_argument('-o', help='Output directory.', default='./testing_samples_2')
+parser.add_argument('-i', help='File path of input image.', default='./testing_samples')
+parser.add_argument('-o', help='Output directory.', default='./testing_samples')
 parser.add_argument('-gpu', help='GPU device specifier. Two GPU devices must be specified, such as 0,1.', default='0')
 parser.add_argument('-dm', help='File path of a downexposure model.', default='./models/downexposure_model_2.chainer')
 parser.add_argument('-um', help='File path of a upexposure model.', default='./models/upexposure_model_2.chainer')
-parser.add_argument('-al', help='Output directory.', default='0.9')
+parser.add_argument('-al', help='Output directory.', default='0.6')
 args = parser.parse_args()
 
 start = datetime.datetime.now()
@@ -80,7 +83,6 @@ for i in range (N):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     cv2.imwrite(save_path + '/HDR_Ground.hdr', HDR_Ground)
-    scio.savemat(save_path + '/HDR_Ground.mat',{'HDR_Ground':HDR_Ground})
     print('\tReading...')
     for ii in range (len(frames)):
         img = cv2.imread(frames[ii])
