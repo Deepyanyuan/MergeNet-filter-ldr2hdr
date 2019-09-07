@@ -1,6 +1,16 @@
 # MergeNet-filter-ldr2hdr
 MergeNet-filter-ldr2hdr, detail in paper 《Reconstructing HDR Image from a Single Filtered LDR Image Base on a Deep HDR Merger Network》 
 
+2019-9-01 补充
+
+新增了完整的数据集和预训练好的参数，链接如下
+
+链接：https://pan.baidu.com/s/1dD5NMOV8Cov3G_F5WHjwTw 
+提取码：ccwk 
+
+注意，下载后，需要先将所有压缩文件解压，默认路径即可
+
+
 original HDR dataset come from online: DML-HDR {http://dml.ece.ubc.ca/data/DML-HDR/} and Funt-HDR {https://www2.cs.sfu.ca/~colour/data/}.
 
 step 0: generate training pairs by generate_data.py or generate_data_2.py
