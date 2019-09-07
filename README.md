@@ -3,7 +3,7 @@ MergeNet-filter-ldr2hdr, detail in paper 《Reconstructing HDR Image from a Sing
 
 2019-9-01 补充
 
-新增论文PDF版本
+新增论文PDF版本，见 ISMAR2019-BinLiang.pdf
 
 新增了完整的数据集和预训练好的参数，链接如下
 
