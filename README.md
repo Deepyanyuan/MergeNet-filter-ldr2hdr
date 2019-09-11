@@ -1,17 +1,11 @@
 # MergeNet-filter-ldr2hdr
 MergeNet-filter-ldr2hdr, detail in paper 《Reconstructing HDR Image from a Single Filtered LDR Image Base on a Deep HDR Merger Network》 
 
-2019-9-01 补充
 
-新增论文PDF版本，见 ISMAR2019-BinLiang.pdf
 
-新增了完整的数据集和预训练好的参数，链接如下
+2019-7-1
 
-链接：https://pan.baidu.com/s/1dD5NMOV8Cov3G_F5WHjwTw 
-提取码：ccwk 
-
-注意，下载后，需要先将所有压缩文件解压，默认路径即可
-
+pipeline:
 
 original HDR dataset come from online: DML-HDR {http://dml.ece.ubc.ca/data/DML-HDR/} and Funt-HDR {https://www2.cs.sfu.ca/~colour/data/}.
 
@@ -26,3 +20,20 @@ step 3: test this network by test_network.py.
 step 4: predict the results if input any LDR image by main.py
 
 step 5: performance comparison by Matlab code
+
+
+2019-9-01
+
+supplement
+
+
+Added PDF version of the paper, see ISMAR2019-BinLiang.pdf
+
+supplement
+
+Added a complete datasets and pre-trained parameters, linked as follows
+
+linked：https://pan.baidu.com/s/1dD5NMOV8Cov3G_F5WHjwTw 
+Extraction code：ccwk 
+
+Note that after downloading, you need to extract all the compressed files first, the default path can be
